@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             const data = await response.json();
-            resultDiv.textContent = `Predicted Price: <strong>${data.prediction}</strong>`;
+            resultDiv.textContent = `Predicted Price: $${data.prediction}`;
         } catch (error) {
             resultDiv.textContent = "Error predicting price.";
             console.error(error);

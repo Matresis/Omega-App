@@ -6,16 +6,16 @@ from datetime import datetime
 from sklearn.preprocessing import StandardScaler
 
 # Load model & encoders
-with open("models/gradient_boosting_model.pkl", "rb") as f:
+with open("gradient_boosting_model.pkl", "rb") as f:
     model = pickle.load(f)
 
-with open("models/brand_encoding.pkl", "rb") as f:
+with open("brand_encoding.pkl", "rb") as f:
     brand_encoding = pickle.load(f)
 
-with open("models/feature_order.pkl", "rb") as f:
+with open("feature_order.pkl", "rb") as f:
     expected_columns = pickle.load(f)
 
-with open("models/scaler.pkl", "rb") as f:
+with open("scaler.pkl", "rb") as f:
     scaler = pickle.load(f)
 
 app = Flask(__name__)
