@@ -4,21 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Price & Risk Prediction</title>
-    <link rel="stylesheet" th:href="@{style.css}">
-    <script th:src="@{script.js}" defer></script>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/script.js}" defer></script>
 </head>
 <body>
 
 <header>
-    <h1>🚗 AI Car Evaluation System</h1>
-    <p>Get accurate predictions for <strong>price</strong>, <strong>risk</strong>, and <strong>flipping potential</strong> of used cars.</p>
+    <div class="logo">
+        <a th:href="@{/}">
+            <img th:src="@{/img/logo.svg}" alt="Logo">
+        </a>
+    </div>
+    <div class="title">
+        <h1>🚗 AI Car Evaluation System</h1>
+        <p>Get accurate predictions for <strong>price</strong>, <strong>risk</strong>, and <strong>flipping potential</strong> of used cars.</p>
+    </div>
+    <div class="links">
+        <a th:href="@{/about}" class="btn-primary">Our Models</a>
+        <a th:href="@{/auth}" class="btn-primary">Sign In</a>
+    </div>
 </header>
 
-<section id="description">
+<section id="description" class="container">
     <h1>Welcome to Car AI Prediction System</h1>
     <p>Predict car prices, assess risk, and estimate potential resale profit.</p>
-    <a href="/try-ai" class="btn-primary">🚀 Try the AI</a>
+    <a th:href="@{/try-ai}" class="btn-primary">🚀 Try the AI</a>
 </section>
-
 </body>
 </html>

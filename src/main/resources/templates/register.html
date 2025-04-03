@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a th:href="@{/}">
+            <img th:src="@{/img/logo.svg}" alt="Logo">
+        </a>
+    </div>
+    <div class="title">
+        <h1>📝 Register</h1>
+        <p>Create an account to start using all of our AI-powered car evaluation tools.</p>
+    </div>
+</header>
+
+<div class="container">
+    <form id="registerForm" th:action="@{/auth/register}" method="post">
+        <label for="name">👤 Full Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">📧 Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">🔑 Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="confirmPassword">🔑 Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+        <button type="submit">🚀 Register</button>
+    </form>
+
+    <div class="navigation-buttons">
+        <p>Already have an account? <a th:href="@{/auth}">Login here</a>.</p>
+        <form th:action="@{/}" method="get">
+            <button type="submit">🏠 Back to Home</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

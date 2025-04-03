@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a th:href="@{/}">
+            <img th:src="@{/img/logo.svg}" alt="Logo">
+        </a>
+    </div>
+    <div class="title">
+        <h1>🔐 User Login</h1>
+        <p>Access your account to use our AI car evaluation tools.</p>
+    </div>
+</header>
+
+<div class="container">
+    <form id="loginForm" th:action="@{/auth/login}" method="post">
+        <label for="email">📧 Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">🔑 Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">🚀 Login</button>
+    </form>
+
+    <div class="navigation-buttons">
+        <p>Don't have an account? <a th:href="@{/auth/register}">Register here</a>.</p>
+        <form th:action="@{/}" method="get">
+            <button type="submit">🏠 Back to Home</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

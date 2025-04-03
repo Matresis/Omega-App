@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Our AI Models</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a th:href="@{/}">
+            <img th:src="@{/img/logo.svg}" alt="Logo">
+        </a>
+    </div>
+    <div class="title">
+        <h1>🔍 About Our AI Models</h1>
+        <p>Learn how our AI-powered car evaluation system works.</p>
+    </div>
+    <div class="links">
+        <a th:href="@{/about}" class="btn-primary">Our Models</a>
+        <a th:href="@{/auth}" class="btn-primary">Sign In</a>
+    </div>
+</header>
+
+<div class="container">
+    <section class="model-info">
+        <h2>💰 Car Price Predictor</h2>
+        <p>Our price prediction model estimates a car's market value based on factors such as brand, year, mileage, condition, and more.</p>
+    </section>
+
+    <section class="model-info">
+        <h2>⚠️ Risk Prediction Model</h2>
+        <p>The risk assessment model evaluates potential risks associated with a used car purchase, considering title status, mileage, and unusual pricing.</p>
+    </section>
+
+    <section class="model-info">
+        <h2>🚀 Flip Profitability Estimator</h2>
+        <p>This model predicts the potential resale value of a used car, helping users determine whether flipping the car is profitable.</p>
+    </section>
+</div>
+
+<div class="navigation-buttons-about">
+    <form th:action="@{/}" method="get">
+        <button type="submit">🏠 Back to Home</button>
+    </form>
+</div>
+</body>
+</html>

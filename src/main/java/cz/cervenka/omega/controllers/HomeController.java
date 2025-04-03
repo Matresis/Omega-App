@@ -17,4 +17,9 @@ public class HomeController {
     public String ai() {
         return "redirect:/price-predictor";
     }
+
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    }
 }

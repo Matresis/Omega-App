@@ -4,14 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Price Prediction</title>
-    <link rel="stylesheet" th:href="@{style.css}">
-    <script th:src="@{price_predictor.js}" defer></script>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/price_predictor.js}" defer></script>
 </head>
 <body>
 
 <header>
-    <h1>🚗 AI Car Evaluation System</h1>
-    <p>Get accurate predictions for <strong>price</strong>, <strong>risk</strong>, and <strong>flipping potential</strong> of used cars.</p>
+    <div class="logo">
+        <a th:href="@{/}">
+            <img th:src="@{/img/logo.svg}" alt="Logo">
+        </a>
+    </div>
+    <div class="title">
+        <h1>🚗 AI Car Evaluation System</h1>
+        <p>Get accurate predictions for <strong>price</strong>, <strong>risk</strong>, and <strong>flipping potential</strong> of used cars.</p>
+    </div>
+    <div class="links">
+        <a th:href="@{/about}" class="btn-primary">Our Models</a>
+        <a th:href="@{/auth}" class="btn-primary">Sign In</a>
+    </div>
 </header>
 
 <h1>Car Price Prediction</h1>
@@ -73,6 +84,5 @@
         </form>
     </div>
 </div>
-
 </body>
 </html>
