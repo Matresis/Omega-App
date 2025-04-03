@@ -18,10 +18,19 @@ public class PredictorService {
     private String flaskServerUrl;
 
     public Map<String, Object> predictCarPrice(Map<String, Object> carData) {
-        String apiUrl = flaskServerUrl + "/predict";
+        String apiUrl = flaskServerUrl + "/predict-price";
         ResponseEntity<Map> response = restTemplate.postForEntity(apiUrl, carData, Map.class);
         return response.getBody();
     }
+
+    public Map<String, Object> predictRisk(Map<String, Object> carData) {
+        String apiUrl = flaskServerUrl + "/predict-risk";
+        carData.put("Price", Double.valueOf(carData.get("Price").toString()));
+        System.out.println("Sending data to Flask API: " + carData);  // Debugging log
+        ResponseEntity<Map> response = restTemplate.postForEntity(apiUrl, carData, Map.class);
+        return response.getBody();
+    }
+
 
     public List<String> getBrands() {
         return Arrays.asList("Ford", "Toyota", "Chevrolet", "Honda", "Nissan", "BMW", "Dodge", "Jeep",
@@ -34,7 +43,7 @@ public class PredictorService {
     }
 
     public List<String> getBodyTypes() {
-        return Arrays.asList("sedan", "suv", "coupe", "hatchback", "minivan", "convertible", "offroad", "pickup", "suv", "truck", "van", "wagon", "other");
+        return Arrays.asList("sedan", "suv", "coupe", "hatchback", "minivan", "convertible", "offroad", "pickup", "truck", "van", "wagon", "other");
     }
 
     public List<String> getConditions() {

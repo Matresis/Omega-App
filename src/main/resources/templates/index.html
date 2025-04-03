@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Price Prediction</title>
+    <title>Car Price & Risk Prediction</title>
     <link rel="stylesheet" th:href="@{style.css}">
     <script th:src="@{script.js}" defer></script>
 </head>
 <body>
 
-<h1>Car Price Prediction</h1>
+<h1>Car Price & Risk Prediction</h1>
 
-<!-- Flex container for two forms -->
 <div class="container">
 
-    <!-- Left Form -->
-    <form id="pricePredictionForm" th:action="@{/predict}" method="post">
-        <h2>Car 1</h2>
+    <!-- Left Form (Price Prediction) -->
+    <form id="pricePredictionForm" th:action="@{/predict-price}" method="post">
+        <h2>Car 1 - Price Prediction</h2>
+
         <label for="brand1">Brand:</label>
         <select id="brand1" name="brand">
             <option th:each="brand : ${brands}" th:value="${brand}" th:text="${brand}"></option>
@@ -61,9 +61,10 @@
         <h3 id="pricePredictionResult"></h3>
     </form>
 
-    <!-- Right Form -->
-    <form id="riskPredictionForm" th:action="@{/predict}" method="post">
-        <h2>Car 2</h2>
+    <!-- Right Form (Risk Prediction) -->
+    <form id="riskPredictionForm" th:action="@{/predict-risk}" method="post">
+        <h2>Car 2 - Risk Prediction</h2>
+
         <label for="brand2">Brand:</label>
         <select id="brand2" name="brand">
             <option th:each="brand : ${brands}" th:value="${brand}" th:text="${brand}"></option>
@@ -103,7 +104,10 @@
         <label for="cylinders2">Cylinders:</label>
         <input type="number" id="cylinders2" name="cylinders" min="2" max="12" value="6" required>
 
-        <button type="submit">Predict Price</button>
+        <label for="price2">Price:</label>
+        <input type="number" id="price2" name="price" min="1000" value="10000" required>
+
+        <button type="submit">Predict Risk</button>
 
         <h3 id="riskPredictionResult"></h3>
     </form>

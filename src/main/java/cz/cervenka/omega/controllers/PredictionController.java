@@ -36,9 +36,15 @@ public class PredictionController {
         return "index";
     }
 
-    @PostMapping("/predict")
+    @PostMapping("/predict-price")
     @ResponseBody
     public Map<String, Object> predictCarPrice(@RequestBody Map<String, Object> carData) {
         return predictorService.predictCarPrice(carData);
+    }
+
+    @PostMapping("/predict-risk")
+    @ResponseBody
+    public Map<String, Object> predictRisk(@RequestBody Map<String, Object> carData) {
+        return predictorService.predictRisk(carData);
     }
 }
