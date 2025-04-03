@@ -45,6 +45,10 @@ public class PredictionController {
     @PostMapping("/predict-risk")
     @ResponseBody
     public Map<String, Object> predictRisk(@RequestBody Map<String, Object> carData) {
+        System.out.println("Received carData: " + carData); // Debugging output
+        if (!carData.containsKey("Price") || carData.get("Price") == null) {
+            System.err.println("Error: 'Price' key is missing or null in carData -> " + carData);
+        }
         return predictorService.predictRisk(carData);
     }
 }

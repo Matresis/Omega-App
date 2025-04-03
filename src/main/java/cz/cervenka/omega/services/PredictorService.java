@@ -25,6 +25,12 @@ public class PredictorService {
 
     public Map<String, Object> predictRisk(Map<String, Object> carData) {
         String apiUrl = flaskServerUrl + "/predict-risk";
+        if (carData.containsKey("Price") && carData.get("Price") != null) {
+            carData.put("Price", Double.valueOf(carData.get("Price").toString()));
+        } else {
+            System.out.println("Error: 'Price' key is missing or null in carData -> " + carData);
+        }
+
         carData.put("Price", Double.valueOf(carData.get("Price").toString()));
         System.out.println("Sending data to Flask API: " + carData);  // Debugging log
         ResponseEntity<Map> response = restTemplate.postForEntity(apiUrl, carData, Map.class);

@@ -51,8 +51,11 @@ document.addEventListener("DOMContentLoaded", function () {
             Condition: document.getElementById("condition2").value,
             Cylinders: parseInt(document.getElementById("cylinders2").value),
             "Fuel Type": document.getElementById("fuelType2").value,
-            "Title Status": document.getElementById("titleStatus2").value
+            "Title Status": document.getElementById("titleStatus2").value,
+            Price: parseInt(document.getElementById("price2").value)
         };
+
+        console.log("Sending risk prediction data:", formData);
 
         try {
             const response = await fetch("/predict-risk", {
