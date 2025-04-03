@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/")
-public class PredictionController {
+@RequestMapping("/risk-predictor")
+public class RiskPredictionController {
 
     private final PredictorService predictorService;
 
-    public PredictionController(PredictorService predictorService) {
+    public RiskPredictionController(PredictorService predictorService) {
         this.predictorService = predictorService;
     }
 
@@ -33,19 +33,12 @@ public class PredictionController {
         model.addAttribute("bodyTypes", bodyTypes);
         model.addAttribute("conditions", conditions);
         model.addAttribute("titleStatuses", titleStatuses);
-        return "index";
-    }
-
-    @PostMapping("/predict-price")
-    @ResponseBody
-    public Map<String, Object> predictCarPrice(@RequestBody Map<String, Object> carData) {
-        return predictorService.predictCarPrice(carData);
+        return "risk_predictor";
     }
 
     @PostMapping("/predict-risk")
     @ResponseBody
     public Map<String, Object> predictRisk(@RequestBody Map<String, Object> carData) {
-        System.out.println("Received carData: " + carData); // Debugging output
         if (!carData.containsKey("Price") || carData.get("Price") == null) {
             System.err.println("Error: 'Price' key is missing or null in carData -> " + carData);
         }
