@@ -8,50 +8,107 @@
     <script th:src="@{script.js}" defer></script>
 </head>
 <body>
+
 <h1>Car Price Prediction</h1>
-<form id="predictionForm" th:action="@{/predict}" method="post">
-    <label for="brand">Brand:</label>
-    <select id="brand" name="brand">
-        <option th:each="brand : ${brands}" th:value="${brand}" th:text="${brand}"></option>
-    </select>
 
-    <label for="year">Year:</label>
-    <input type="number" id="year" name="year" min="2000" max="2025" value="2010" required>
+<!-- Flex container for two forms -->
+<div class="container">
 
-    <label for="mileage">Mileage:</label>
-    <input type="number" id="mileage" name="mileage" value="50000" required>
+    <!-- Left Form -->
+    <form id="pricePredictionForm" th:action="@{/predict}" method="post">
+        <h2>Car 1</h2>
+        <label for="brand1">Brand:</label>
+        <select id="brand1" name="brand">
+            <option th:each="brand : ${brands}" th:value="${brand}" th:text="${brand}"></option>
+        </select>
 
-    <label for="transmission">Transmission:</label>
-    <select id="transmission" name="transmission">
-        <option th:each="transmission : ${transmissions}" th:value="${transmission}" th:text="${transmission}"></option>
-    </select>
+        <label for="year1">Year:</label>
+        <input type="number" id="year1" name="year" min="2000" max="2025" value="2010" required>
 
-    <label for="bodyType">Body Type:</label>
-    <select id="bodyType" name="bodyType">
-        <option th:each="bodyType : ${bodyTypes}" th:value="${bodyType}" th:text="${bodyType}"></option>
-    </select>
+        <label for="mileage1">Mileage:</label>
+        <input type="number" id="mileage1" name="mileage" value="50000" required>
 
-    <label for="condition">Condition:</label>
-    <select id="condition" name="condition">
-        <option th:each="condition : ${conditions}" th:value="${condition}" th:text="${condition}"></option>
-    </select>
+        <label for="transmission1">Transmission:</label>
+        <select id="transmission1" name="transmission">
+            <option th:each="transmission : ${transmissions}" th:value="${transmission}" th:text="${transmission}"></option>
+        </select>
 
-    <label for="fuelType">Fuel Type:</label>
-    <select id="fuelType" name="fuelType">
-        <option th:each="fuelType : ${fuelTypes}" th:value="${fuelType}" th:text="${fuelType}"></option>
-    </select>
+        <label for="bodyType1">Body Type:</label>
+        <select id="bodyType1" name="bodyType">
+            <option th:each="bodyType : ${bodyTypes}" th:value="${bodyType}" th:text="${bodyType}"></option>
+        </select>
 
-    <label for="titleStatus">Title Status:</label>
-    <select id="titleStatus" name="titleStatus">
-        <option th:each="titleStatus : ${titleStatuses}" th:value="${titleStatus}" th:text="${titleStatus}"></option>
-    </select>
+        <label for="condition1">Condition:</label>
+        <select id="condition1" name="condition">
+            <option th:each="condition : ${conditions}" th:value="${condition}" th:text="${condition}"></option>
+        </select>
 
-    <label for="cylinders">Cylinders:</label>
-    <input type="number" id="cylinders" name="cylinders" min="2" max="12" value="6" required>
+        <label for="fuelType1">Fuel Type:</label>
+        <select id="fuelType1" name="fuelType">
+            <option th:each="fuelType : ${fuelTypes}" th:value="${fuelType}" th:text="${fuelType}"></option>
+        </select>
 
-    <button type="submit">Predict Price</button>
-</form>
+        <label for="titleStatus1">Title Status:</label>
+        <select id="titleStatus1" name="titleStatus">
+            <option th:each="titleStatus : ${titleStatuses}" th:value="${titleStatus}" th:text="${titleStatus}"></option>
+        </select>
 
-<h2 id="predictionResult"></h2>
+        <label for="cylinders1">Cylinders:</label>
+        <input type="number" id="cylinders1" name="cylinders" min="2" max="12" value="6" required>
+
+        <button type="submit">Predict Price</button>
+
+        <h3 id="pricePredictionResult"></h3>
+    </form>
+
+    <!-- Right Form -->
+    <form id="riskPredictionForm" th:action="@{/predict}" method="post">
+        <h2>Car 2</h2>
+        <label for="brand2">Brand:</label>
+        <select id="brand2" name="brand">
+            <option th:each="brand : ${brands}" th:value="${brand}" th:text="${brand}"></option>
+        </select>
+
+        <label for="year2">Year:</label>
+        <input type="number" id="year2" name="year" min="2000" max="2025" value="2010" required>
+
+        <label for="mileage2">Mileage:</label>
+        <input type="number" id="mileage2" name="mileage" value="50000" required>
+
+        <label for="transmission2">Transmission:</label>
+        <select id="transmission2" name="transmission">
+            <option th:each="transmission : ${transmissions}" th:value="${transmission}" th:text="${transmission}"></option>
+        </select>
+
+        <label for="bodyType2">Body Type:</label>
+        <select id="bodyType2" name="bodyType">
+            <option th:each="bodyType : ${bodyTypes}" th:value="${bodyType}" th:text="${bodyType}"></option>
+        </select>
+
+        <label for="condition2">Condition:</label>
+        <select id="condition2" name="condition">
+            <option th:each="condition : ${conditions}" th:value="${condition}" th:text="${condition}"></option>
+        </select>
+
+        <label for="fuelType2">Fuel Type:</label>
+        <select id="fuelType2" name="fuelType">
+            <option th:each="fuelType : ${fuelTypes}" th:value="${fuelType}" th:text="${fuelType}"></option>
+        </select>
+
+        <label for="titleStatus2">Title Status:</label>
+        <select id="titleStatus2" name="titleStatus">
+            <option th:each="titleStatus : ${titleStatuses}" th:value="${titleStatus}" th:text="${titleStatus}"></option>
+        </select>
+
+        <label for="cylinders2">Cylinders:</label>
+        <input type="number" id="cylinders2" name="cylinders" min="2" max="12" value="6" required>
+
+        <button type="submit">Predict Price</button>
+
+        <h3 id="riskPredictionResult"></h3>
+    </form>
+
+</div>
+
 </body>
 </html>
