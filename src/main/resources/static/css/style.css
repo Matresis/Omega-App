@@ -90,6 +90,21 @@ form:hover {
     transform: scale(1.02);
 }
 
+/* Name & Surname Side by Side */
+.name-container {
+    display: flex;
+    gap: 15px;  /* Space between inputs */
+    width: 93%;
+}
+
+.name-container div {
+    flex: 1; /* Make both inputs equal width */
+}
+
+.name-container input {
+    width: 100%; /* Ensure inputs fill their divs */
+}
+
 .navigation-buttons form {
     width: 350px;
     padding: 20px;
@@ -173,7 +188,7 @@ h3.fade-in {
 }
 
 #year1, #mileage1, #cylinders1, #year2, #mileage2, #cylinders2, #price2, #year3, #mileage3, #cylinders3, #price3, #name, #email, #password, #confirmPassword {
-    width: 95%;
+    width: 93%;
 }
 
 /* Footer Styling */
