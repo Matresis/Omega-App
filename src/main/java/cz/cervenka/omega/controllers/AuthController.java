@@ -1,33 +1,87 @@
 package cz.cervenka.omega.controllers;
 
+import cz.cervenka.omega.database.entities.UserEntity;
+import cz.cervenka.omega.services.AuthService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
 
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
 
+    private final AuthService authService;
+
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
+
+    /**
+     * Displays the login page.
+     */
     @GetMapping
-    public String login() {
+    public String loginPage() {
         return "login";
     }
 
+    /**
+     * Displays the registration form.
+     */
     @GetMapping("/register")
-    public String logout() {
+    public String showRegisterForm(Model model) {
+        model.addAttribute("user", new UserEntity());
         return "register";
     }
 
+    /**
+     * Handles user login.
+     */
     @PostMapping("/login")
-    public String authenticate() {
-        // Implement authentication logic here
-        return "redirect:/";
+    public String authenticateUser(@RequestParam String email,
+                                   @RequestParam String password,
+                                   Model model) {
+        if (email.isBlank() || password.isBlank()) {
+            model.addAttribute("errorMessage", "Email and password cannot be empty.");
+            return "login";
+        }
+
+        boolean isAuthenticated = authService.authenticateUser(email, password);
+        if (isAuthenticated) {
+            model.addAttribute("userEmail", email);
+            return "redirect:/";
+        } else {
+            model.addAttribute("errorMessage", "Invalid email or password.");
+            return "login";
+        }
     }
 
+    /**
+     * Handles user registration.
+     */
     @PostMapping("/register")
-    public String register() {
-        // Implement registration logic here
-        return "redirect:/";
+    public String registerUser(@RequestParam String name,
+                               @RequestParam String surname,
+                               @RequestParam String email,
+                               @RequestParam String password,
+                               Model model) {
+        if (name.isBlank() || surname.isBlank() || email.isBlank() || password.isBlank()) {
+            model.addAttribute("errorMessage", "All fields are required.");
+            return "register";
+        }
+
+        UserEntity newUser = new UserEntity();
+        newUser.setName(name);
+        newUser.setSurname(surname);
+        newUser.setEmail(email);
+        newUser.setPassword(password);
+
+        try {
+            authService.registerUser(newUser);
+            return "redirect:/";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorMessage", "User with this email already exists.");
+            return "register";
+        }
     }
 }
