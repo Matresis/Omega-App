@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/auth")
@@ -17,30 +18,22 @@ public class AuthController {
         this.authService = authService;
     }
 
-    /**
-     * Displays the login page.
-     */
     @GetMapping
     public String loginPage() {
         return "login";
     }
 
-    /**
-     * Displays the registration form.
-     */
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new UserEntity());
         return "register";
     }
 
-    /**
-     * Handles user login.
-     */
     @PostMapping("/login")
     public String authenticateUser(@RequestParam String email,
                                    @RequestParam String password,
-                                   Model model) {
+                                   Model model,
+                                   HttpSession session) {  // Inject session
         if (email.isBlank() || password.isBlank()) {
             model.addAttribute("errorMessage", "Email and password cannot be empty.");
             return "login";
@@ -48,7 +41,7 @@ public class AuthController {
 
         boolean isAuthenticated = authService.authenticateUser(email, password);
         if (isAuthenticated) {
-            model.addAttribute("userEmail", email);
+            session.setAttribute("userEmail", email); // Store email in session
             return "redirect:/";
         } else {
             model.addAttribute("errorMessage", "Invalid email or password.");
@@ -56,9 +49,6 @@ public class AuthController {
         }
     }
 
-    /**
-     * Handles user registration.
-     */
     @PostMapping("/register")
     public String registerUser(@RequestParam String name,
                                @RequestParam String surname,
@@ -83,5 +73,11 @@ public class AuthController {
             model.addAttribute("errorMessage", "User with this email already exists.");
             return "register";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); // Clear session on logout
+        return "redirect:/";
     }
 }

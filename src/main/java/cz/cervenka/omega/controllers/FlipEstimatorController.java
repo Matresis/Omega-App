@@ -1,6 +1,7 @@
 package cz.cervenka.omega.controllers;
 
 import cz.cervenka.omega.services.PredictorService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class FlipEstimatorController {
     }
 
     @GetMapping
-    public String showForm(Model model) {
+    public String showForm(Model model, HttpSession session) {
         List<String> brands = predictorService.getBrands();
         List<String> transmissions = predictorService.getTransmissions();
         List<String> bodyTypes = predictorService.getBodyTypes();
@@ -33,7 +34,10 @@ public class FlipEstimatorController {
         model.addAttribute("bodyTypes", bodyTypes);
         model.addAttribute("conditions", conditions);
         model.addAttribute("titleStatuses", titleStatuses);
-        return "flip_estimator";
+
+        String userEmail = (String) session.getAttribute("userEmail");
+        model.addAttribute("userEmail", userEmail);
+        return "risk_predictor";
     }
 
     @PostMapping("/estimate-flip")

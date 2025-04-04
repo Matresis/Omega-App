@@ -22,7 +22,8 @@
     </div>
     <div class="links">
         <a th:href="@{/about}" class="btn-primary">Our Models</a>
-        <a th:href="@{/auth}" class="btn-primary">Sign In</a>
+        <a th:href="@{/auth}" class="btn-primary" th:if="${userEmail == null}">Sign In</a>
+        <span th:if="${userEmail != null}" class="user-info">👤 Logged in as: <span th:text="${userEmail}"></span></span>
     </div>
 </header>
 
@@ -77,12 +78,26 @@
     </form>
 
     <div class="navigation-buttons">
-        <form th:action="@{/risk-predictor}" method="get">
+        <!-- Risk Predictor Button -->
+        <form th:if="${userEmail != null}" th:action="@{/risk-predictor}" method="get">
             <button type="submit">Risk Prediction</button>
         </form>
-        <form th:action="@{/flip-estimator}" method="get">
+        <button th:if="${userEmail == null}" class="restricted" onclick="requireLogin()">Risk Prediction</button>
+
+        <!-- Flip Estimator Button -->
+        <form th:if="${userEmail != null}" th:action="@{/flip-estimator}" method="get">
             <button type="submit">Flip Estimator</button>
         </form>
+        <button th:if="${userEmail == null}" class="restricted" onclick="requireLogin()">Flip Estimator</button>
+    </div>
+</div>
+
+<!-- Modal Popup -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <h2>🔒 Access Restricted</h2>
+        <p>You need to log in to use this feature.</p>
+        <button onclick="redirectToLogin()">Log In</button>
     </div>
 </div>
 </body>

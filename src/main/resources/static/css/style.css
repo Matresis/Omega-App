@@ -187,6 +187,36 @@ h3.fade-in {
     transform: translateY(0);
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content {
+    text-align: center;
+}
+
+.modal-content button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.modal-content button:hover {
+    background: #0056b3;
+}
+
 #year1, #mileage1, #cylinders1, #year2, #mileage2, #cylinders2, #price2, #year3, #mileage3, #cylinders3, #price3, #name, #email, #password, #confirmPassword {
     width: 93%;
 }

@@ -34,3 +34,25 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const isLoggedIn = document.cookie.split('; ').find(row => row.startsWith('userEmail=')) !== undefined;
+
+    if (!isLoggedIn) {
+        document.querySelectorAll(".restricted").forEach(button => {
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                showLoginModal();
+            });
+        });
+    }
+});
+
+function showLoginModal() {
+    const modal = document.getElementById("loginModal");
+    modal.style.display = "block";
+}
+
+function redirectToLogin() {
+    window.location.href = "/auth";
+}
