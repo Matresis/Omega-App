@@ -1,5 +1,6 @@
 package cz.cervenka.omega.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.cervenka.omega.services.PredictorService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -43,9 +44,6 @@ public class RiskPredictionController {
     @PostMapping("/predict-risk")
     @ResponseBody
     public Map<String, Object> predictRisk(@RequestBody Map<String, Object> carData) {
-        if (!carData.containsKey("Price") || carData.get("Price") == null) {
-            System.err.println("Error: 'Price' key is missing or null in carData -> " + carData);
-        }
         return predictorService.predictRisk(carData);
     }
 }
