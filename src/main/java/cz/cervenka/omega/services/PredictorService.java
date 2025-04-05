@@ -34,16 +34,18 @@ public class PredictorService {
         return response.getBody();
     }
 
-    public Map<String, Object> estimateFlip(Map<String, Object> carData) {
-        String apiUrl = flaskServerUrl + "/predict-risk";
-        if (carData.containsKey("Price") && carData.get("Price") != null) {
-            carData.put("Price", Double.valueOf(carData.get("Price").toString()));
-        } else {
-            System.out.println("Error: 'Price' key is missing or null in carData -> " + carData);
-        }
+    public Map<String, Object> predictRepair(Map<String, Object> carData) {
+        String apiUrl = flaskServerUrl + "/predict-repair";
 
         carData.put("Price", Double.valueOf(carData.get("Price").toString()));
-        System.out.println("Sending data to Flask API: " + carData);  // Debugging log
+        ResponseEntity<Map> response = restTemplate.postForEntity(apiUrl, carData, Map.class);
+        return response.getBody();
+    }
+
+    public Map<String, Object> estimateCost(Map<String, Object> carData) {
+        String apiUrl = flaskServerUrl + "/estimate-cost";
+
+        carData.put("Price", Double.valueOf(carData.get("Price").toString()));
         ResponseEntity<Map> response = restTemplate.postForEntity(apiUrl, carData, Map.class);
         return response.getBody();
     }

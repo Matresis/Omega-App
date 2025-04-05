@@ -69,13 +69,13 @@ header p {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 50px;
     padding: 40px;
 }
 
 /* Form Cards */
 form {
-    width: 350px;
+    width: 700px;
     padding: 20px;
     background: white;
     border-radius: 12px;
@@ -88,6 +88,18 @@ form {
 
 form:hover {
     transform: scale(1.02);
+}
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.form-half {
+    flex: 1;
+    /*min-width: 300px;*/
 }
 
 /* Name & Surname Side by Side */
