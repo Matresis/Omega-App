@@ -159,6 +159,7 @@ public class CarEvaluationService {
 | Encoding field "Brand"  | Encoding parameter "Brand" into number-like form for models to handle                                     | Encoded into number representing mean of price of cars with same brand          |
 | Feature engineering              | Suggested features like `Car_Age`, `Mileage_per_Year`, and price-based brand encoding            | Improved model performance and realism                  |
 | Mapping risk labels              | Feature engineering columns as for example `Condition_Risk` into `Risk_Category` represented by number and labels (Low, Medium, High)            | Feature engineering and label mapping                  |
+| Passing models              | Passing functions like Scaler, encodings or order of parameters as models            | Secured passing of normalization methods and maintenance of order of features model is trained and tested with                  |
 
 ---
 
