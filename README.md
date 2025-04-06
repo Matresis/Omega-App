@@ -63,9 +63,12 @@ This repository contains a machine learning-based car evaluation system implemen
 ## Issues
 | Name                     | Description                                                                                   | Expected                     | Issue                   | Resolved/Fix                 |
 |--------------------------|-----------------------------------------------------------------------------------------------|------------------------------|-------------------------|------------------------------|
-| Missing config file      | Could not run the application when configuration file wasn't present in directory             | Error message                | Crash                   | No                           |
-| Not compatible with different ports | Could not run the application when configuration file wasn't present in directory  | Error message                | Remote bank not found   | Yes                          |
-| School computers      | Trouble establishing connection between banks              | Error message                | Remote bank not found                   | Yes                           |
+| Price not send into api      | Price wasn't being sent from form into model             | Error message                | Crash                   | Parsing form String to Double                           |
+| Result of prediction not displayed | After trying to predict cost of repair, result did not display  | Error message                | JavaScript Key Mismatch   | Entering correct passing key                          |
+| Wrong model endpoint called      | Called the wrong Flask endpoint from predictor service                                        | Correct model result                 | Wrong output or 404              | Fixed `apiUrl` string in service class            |
+| Flask not running                | Prediction endpoints returned `Connection Refused`                                            | Valid API response                   | Flask server not started         | Ran Flask model locally        |
+| JSON parsing issues              | API call returned unexpected error or null values                                             | Parsed response object               | Bad or nested JSON structure     | Checked Flask response keys and structure         |
+| Shape mismatch              | Shape mismatch when sending formData into model prediction                                             | Result of Prediction               | Shape mismatch     | Added / Removed parameters from recieving data         |
 
 
 ## Spring Boot Web Application
@@ -77,7 +80,7 @@ The Spring Boot application provides a web interface for users to interact with 
    - Estimated repair costs
 
 ### Features
-- **User Authentication**: Secure login and registration system to allow users to save their car evaluations.
+- **User Authentication**: Secure login and registration system to allow only logged in users use other ai models on website.
 - **Car Evaluation Forms**: Three main forms for:
   1. **Price Prediction**
   2. **Risk Prediction**
@@ -145,6 +148,18 @@ public class CarEvaluationService {
     }
 }
 ```
+---
+
+## ChatGPT
+| Topic                            | Description                                                                                      | Result                                                   |
+|----------------------------------|--------------------------------------------------------------------------------------------------|----------------------------------------------------------|
+| Scraper for cars          | Helped structure the scraper using selenium and webdriver library                                       | Functional scraper for **craigslist** website             |
+| Flask model integration          | Helped connect Spring Boot to Flask ML models via REST API                                       | Functional prediction endpoints `/predict-*`            |
+| Data cleaning and preprocessing  | Created robust cleaning pipelines for car datasets                                               | Clean, consistent data for training & inference         |
+| Encoding field "Brand"  | Encoding parameter "Brand" into number-like form for models to handle                                     | Encoded into number representing mean of price of cars with same brand          |
+| Feature engineering              | Suggested features like `Car_Age`, `Mileage_per_Year`, and price-based brand encoding            | Improved model performance and realism                  |
+| Mapping risk labels              | Feature engineering columns as for example `Condition_Risk` into `Risk_Category` represented by number and labels (Low, Medium, High)            | Feature engineering and label mapping                  |
+
 ---
 
 ## Requirements
