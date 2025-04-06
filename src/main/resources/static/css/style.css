@@ -229,7 +229,7 @@ h3.fade-in {
     background: #0056b3;
 }
 
-#year1, #mileage1, #cylinders1, #year2, #mileage2, #cylinders2, #price2, #year3, #mileage3, #cylinders3, #price3, #name, #email, #password, #confirmPassword {
+#year, #mileage, #cylinders, #price, #name, #email, #password, #confirmPassword {
     width: 93%;
 }
 

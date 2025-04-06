@@ -7,16 +7,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Collect form data
         const formData = {
-            Brand: document.getElementById("brand2").value,
-            Year: parseInt(document.getElementById("year2").value),
-            Mileage: parseInt(document.getElementById("mileage2").value),
-            Transmission: document.getElementById("transmission2").value,
-            "Body Type": document.getElementById("bodyType2").value,
-            Condition: document.getElementById("condition2").value,
-            Cylinders: parseInt(document.getElementById("cylinders2").value),
-            "Fuel Type": document.getElementById("fuelType2").value,
-            "Title Status": document.getElementById("titleStatus2").value,
-            Price: parseInt(document.getElementById("price2").value)
+            Brand: document.getElementById("brand").value,
+            Year: parseInt(document.getElementById("year").value),
+            Mileage: parseInt(document.getElementById("mileage").value),
+            Transmission: document.getElementById("transmission").value,
+            "Body Type": document.getElementById("bodyType").value,
+            Condition: document.getElementById("condition").value,
+            Cylinders: parseInt(document.getElementById("cylinders").value),
+            "Fuel Type": document.getElementById("fuelType").value,
+            "Title Status": document.getElementById("titleStatus").value,
+            Price: parseInt(document.getElementById("price").value)
         };
 
         console.log("Sending risk prediction data:", formData);

@@ -13,15 +13,15 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
 
         const formData = {
-            Brand: document.getElementById("brand1").value,
-            Year: parseInt(document.getElementById("year1").value),
-            Mileage: parseInt(document.getElementById("mileage1").value),
-            Transmission: document.getElementById("transmission1").value,
-            "Body Type": document.getElementById("bodyType1").value,
-            Condition: document.getElementById("condition1").value,
-            Cylinders: parseInt(document.getElementById("cylinders1").value),
-            "Fuel Type": document.getElementById("fuelType1").value,
-            "Title Status": document.getElementById("titleStatus1").value
+            Brand: document.getElementById("brand").value,
+            Year: parseInt(document.getElementById("year").value),
+            Mileage: parseInt(document.getElementById("mileage").value),
+            Transmission: document.getElementById("transmission").value,
+            "Body Type": document.getElementById("bodyType").value,
+            Condition: document.getElementById("condition").value,
+            Cylinders: parseInt(document.getElementById("cylinders").value),
+            "Fuel Type": document.getElementById("fuelType").value,
+            "Title Status": document.getElementById("titleStatus").value
         };
 
         try {
@@ -49,15 +49,15 @@ document.addEventListener("DOMContentLoaded", function () {
         if (predictedPrice === null) return;
 
         const formData = {
-            Brand: document.getElementById("brand1").value,
-            Year: parseInt(document.getElementById("year1").value),
-            Mileage: parseInt(document.getElementById("mileage1").value),
-            Transmission: document.getElementById("transmission1").value,
-            "Body Type": document.getElementById("bodyType1").value,
-            Condition: document.getElementById("condition1").value,
-            Cylinders: parseInt(document.getElementById("cylinders1").value),
-            "Fuel Type": document.getElementById("fuelType1").value,
-            "Title Status": document.getElementById("titleStatus1").value,
+            Brand: document.getElementById("brand").value,
+            Year: parseInt(document.getElementById("year").value),
+            Mileage: parseInt(document.getElementById("mileage").value),
+            Transmission: document.getElementById("transmission").value,
+            "Body Type": document.getElementById("bodyType").value,
+            Condition: document.getElementById("condition").value,
+            Cylinders: parseInt(document.getElementById("cylinders").value),
+            "Fuel Type": document.getElementById("fuelType").value,
+            "Title Status": document.getElementById("titleStatus").value,
             Price: predictedPrice
         };
 
@@ -82,15 +82,15 @@ document.addEventListener("DOMContentLoaded", function () {
         if (predictedPrice === null) return;
 
         const formData = {
-            Brand: document.getElementById("brand1").value,
-            Year: parseInt(document.getElementById("year1").value),
-            Mileage: parseInt(document.getElementById("mileage1").value),
-            Transmission: document.getElementById("transmission1").value,
-            "Body Type": document.getElementById("bodyType1").value,
-            Condition: document.getElementById("condition1").value,
-            Cylinders: parseInt(document.getElementById("cylinders1").value),
-            "Fuel Type": document.getElementById("fuelType1").value,
-            "Title Status": document.getElementById("titleStatus1").value,
+            Brand: document.getElementById("brand").value,
+            Year: parseInt(document.getElementById("year").value),
+            Mileage: parseInt(document.getElementById("mileage").value),
+            Transmission: document.getElementById("transmission").value,
+            "Body Type": document.getElementById("bodyType").value,
+            Condition: document.getElementById("condition").value,
+            Cylinders: parseInt(document.getElementById("cylinders").value),
+            "Fuel Type": document.getElementById("fuelType").value,
+            "Title Status": document.getElementById("titleStatus").value,
             Price: predictedPrice
         };
 
@@ -112,3 +112,25 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const isLoggedIn = document.cookie.split('; ').find(row => row.startsWith('userEmail=')) !== undefined;
+
+    if (!isLoggedIn) {
+        document.querySelectorAll(".restricted").forEach(button => {
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                showLoginModal();
+            });
+        });
+    }
+});
+
+function showLoginModal() {
+    const modal = document.getElementById("loginModal");
+    modal.style.display = "block";
+}
+
+function redirectToLogin() {
+    window.location.href = "/auth";
+}
