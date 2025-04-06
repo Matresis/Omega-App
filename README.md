@@ -6,6 +6,11 @@
 
 This repository contains a machine learning-based car evaluation system implemented with various predictive models. These models are integrated into a Spring Boot web application to predict the price, risk, and repair costs of used cars based on various attributes. This system is designed to help users assess the value, potential risk, and repair requirements of used cars before making purchasing decisions.
 
+## Deployment
+- Application will be shortly deployed on this IP Address: [130.162.229.180](http://130.162.229.180/)
+
+---
+
 ## Models Overview
 
 ### 1. **Car Price Prediction Model**
