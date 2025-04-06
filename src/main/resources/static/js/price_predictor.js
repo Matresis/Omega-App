@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const repairPredictionResult = document.getElementById("repairPredictionResult");
     const repairCostButton = document.getElementById("repairCostButton");
     const repairCostResult = document.getElementById("repairCostResult");
+    const repairReasonResult = document.getElementById("repairReasonResult");
 
     let predictedPrice = null;
 
@@ -101,10 +102,12 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             const data = await response.json();
-            repairCostResult.textContent = `Estimated Repair Cost: $${data.estimatedCost}`;
+            repairCostResult.textContent = `Estimated Repair Cost: $${data.estimated_repair_cost}`;
+            repairReasonResult.textContent = `Repair Reason: ${data.possible_repair_reasons}`;
 
         } catch (error) {
             repairCostResult.textContent = "Error estimating repair cost.";
+            repairReasonResult.textContent = "Error getting repair reasons.";
             console.error(error);
         }
     });

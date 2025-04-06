@@ -55,13 +55,13 @@ with open("models/repair/scaler.pkl", "rb") as f:
 with open("models/repair_cost/repair_cost_model.pkl", "rb") as f:
     repair_cost_model = pc.load(f)
 
-with open("models/repair/brand_encoding.pkl", "rb") as f:
+with open("models/repair_cost/brand_encoding.pkl", "rb") as f:
     repair_cost_brand_encoding = pc.load(f)
 
-with open("models/repair/feature_order.pkl", "rb") as f:
+with open("models/repair_cost/feature_order.pkl", "rb") as f:
     repair_cost_expected_columns = pc.load(f)
 
-with open("models/repair/scaler.pkl", "rb") as f:
+with open("models/repair_cost/scaler.pkl", "rb") as f:
     repair_cost_scaler = pc.load(f)
 
 
@@ -277,6 +277,19 @@ def predict_repair_cost():
         # Convert input to DataFrame
         df_input = pd.DataFrame([data])
 
+        # Normalize text data
+        df_input["Brand"] = df_input["Brand"].str.title().str.strip()
+        df_input["Condition"] = df_input["Condition"].str.lower().replace("like new", "excellent")
+        df_input["Fuel Type"] = df_input["Fuel Type"].str.lower().str.strip()
+        df_input["Transmission"] = df_input["Transmission"].str.lower().str.strip()
+        df_input["Body Type"] = df_input["Body Type"].str.lower().str.strip()
+        df_input["Title Status"] = df_input["Title Status"].str.lower().str.strip()
+
+        # Convert numerical values
+        df_input["Price"] = pd.to_numeric(df_input["Price"], errors="coerce").fillna(0)
+        df_input["Mileage"] = pd.to_numeric(df_input["Mileage"], errors="coerce").fillna(df_input["Mileage"].median())
+        df_input["Cylinders"] = pd.to_numeric(df_input["Cylinders"], errors="coerce").fillna(df_input["Cylinders"].median())
+
         # Feature Engineering
         df_input["Car_Age"] = datetime.now().year - df_input["Year"]
         df_input["Mileage_per_Year"] = df_input["Mileage"] / (df_input["Car_Age"] + 1)
@@ -284,7 +297,7 @@ def predict_repair_cost():
         # Encode brand
         df_input["Brand_Encoded"] = df_input["Brand"].map(repair_cost_brand_encoding).fillna(0)
 
-        # Drop unused columns
+        # Only drop what you truly don't need
         df_input.drop(columns=["Year", "Brand"], inplace=True)
 
         # One-Hot Encoding for categorical columns
@@ -293,31 +306,29 @@ def predict_repair_cost():
 
         print("Expected columns:", repair_cost_expected_columns)
 
-        # Ensure all expected columns exist
+        # Add missing columns with default value 0
         for col in repair_cost_expected_columns:
             if col not in df_input.columns:
                 df_input[col] = 0
 
-        missing = [col for col in repair_cost_expected_columns if col not in df_input.columns]
-        print("Missing columns:", missing)
-        print("Final input shape:", df_input.shape)
-
-        # Reorder columns to match model's expectation
+        # Ensure all columns are present and in correct order
         df_input = df_input[repair_cost_expected_columns]
 
+        print("Final input shape:", df_input.shape)
+
         # Scale numerical features
-        numeric_features = ["Car_Age", "Mileage", "Cylinders", "Brand_Encoded"]
+        numeric_features = ["Car_Age", "Mileage", "Cylinders", "Brand_Encoded", "Price"]
         df_input[numeric_features] = repair_cost_scaler.transform(df_input[numeric_features])
 
         # Predict repair cost
         predicted_cost = repair_cost_model.predict(df_input.values)[0]
 
         # Generate human-readable repair reasons
-        reasons = generate_repair_reason(data)
+        repair_reasons = generate_repair_reason(data)
 
         return jsonify({
             "estimated_repair_cost": round(float(predicted_cost), 2),
-            "possible_repair_reasons": reasons
+            "possible_repair_reasons": repair_reasons
         })
 
     except Exception as e:
