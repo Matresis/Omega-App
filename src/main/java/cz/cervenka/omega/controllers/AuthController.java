@@ -42,7 +42,7 @@ public class AuthController {
         boolean isAuthenticated = authService.authenticateUser(email, password);
         if (isAuthenticated) {
             session.setAttribute("userEmail", email); // Store email in session
-            return "redirect:/";
+            return "redirect:/risk-predictor";
         } else {
             model.addAttribute("errorMessage", "Invalid email or password.");
             return "login";
@@ -68,7 +68,7 @@ public class AuthController {
 
         try {
             authService.registerUser(newUser);
-            return "redirect:/";
+            return "redirect:/risk-predictor";
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMessage", "User with this email already exists.");
             return "register";

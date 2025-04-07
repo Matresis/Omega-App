@@ -1,6 +1,5 @@
 package cz.cervenka.omega.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.cervenka.omega.services.PredictorService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
