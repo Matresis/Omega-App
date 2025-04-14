@@ -64,6 +64,10 @@ header p {
     transform: scale(1.05);
 }
 
+.user-info {
+    margin-top: 20px;
+}
+
 /* Main Container */
 .container {
     display: flex;

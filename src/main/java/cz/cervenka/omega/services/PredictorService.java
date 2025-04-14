@@ -65,7 +65,7 @@ public class PredictorService {
     }
 
     public List<String> getConditions() {
-        return Arrays.asList("new", "excellent", "good", "fair", "salvage");
+        return Arrays.asList("new", "excellent", "good", "fair", "salvage", "unknown");
     }
 
     public List<String> getFuelTypes() {
@@ -73,6 +73,6 @@ public class PredictorService {
     }
 
     public List<String> getTitleStatuses() {
-        return Arrays.asList("clean", "lien", "missing", "parts only", "rebuilt", "salvage");
+        return Arrays.asList("clean", "lien", "missing", "parts only", "rebuilt", "salvage", "unknown");
     }
 }
