@@ -110,7 +110,7 @@ form:hover {
 .name-container {
     display: flex;
     gap: 15px;  /* Space between inputs */
-    width: 93%;
+    width: 96%;
 }
 
 .name-container div {
@@ -235,6 +235,10 @@ h3.fade-in {
 
 #year, #mileage, #cylinders, #price, #name, #email, #password, #confirmPassword {
     width: 93%;
+}
+
+.user-info {
+    margin-top: 10px;
 }
 
 /* Footer Styling */
