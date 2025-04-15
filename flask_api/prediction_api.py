@@ -38,20 +38,6 @@ with open("models/risk/risk_label_map.pkl", "rb") as f:
 
 
 # Load Model and Preprocessing Objects - Repair Classification Model
-with open("models/repair/repair_model.pkl", "rb") as f:
-    repair_model = pc.load(f)
-
-with open("models/repair/brand_encoding.pkl", "rb") as f:
-    repair_brand_encoding = pc.load(f)
-
-with open("models/repair/feature_order.pkl", "rb") as f:
-    repair_expected_columns = pc.load(f)
-
-with open("models/repair/scaler.pkl", "rb") as f:
-    repair_scaler = pc.load(f)
-
-
-# Load Model and Preprocessing Objects - Repair Classification Model
 with open("models/repair_cost/repair_cost_model.pkl", "rb") as f:
     repair_cost_model = pc.load(f)
 
@@ -214,54 +200,6 @@ def predict_risk():
         predicted_risk_label = risk_labels_reversed.get(int(predicted_risk[0]), "Unknown Risk Level")
 
         return jsonify({"prediction": predicted_risk_label})
-
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
-@app.route("/predict-repair", methods=["POST"])
-def predict_repair():
-    try:
-        data = request.get_json()
-        print("Received JSON data:", data)
-
-        # Convert input data to DataFrame
-        df_input = pd.DataFrame([data])
-
-        # Feature Engineering
-        df_input["Car_Age"] = datetime.now().year - df_input["Year"]
-        df_input["Mileage_per_Year"] = df_input["Mileage"] / (df_input["Car_Age"] + 1)
-
-        # Encode brand using the loaded encoding
-        df_input["Brand_Encoded"] = df_input["Brand"].map(repair_brand_encoding).fillna(0)
-
-        # Drop the "Year" and "Brand" columns
-        df_input.drop(columns=["Year", "Brand"], inplace=True)
-
-        # One-Hot Encoding for categorical features
-        categorical_columns = ["Transmission", "Body Type", "Condition", "Fuel Type", "Title Status"]
-        df_input = pd.get_dummies(df_input, columns=categorical_columns)
-
-        # Ensure all expected columns are in the input
-        for col in repair_expected_columns:
-            if col not in df_input.columns:
-                df_input[col] = 0  # Fill missing columns with 0
-
-        # Reorder the columns as expected by the model
-        df_input = df_input[repair_expected_columns]
-
-        # Standardize the numeric features
-        numeric_features = ["Car_Age", "Mileage", "Cylinders", "Brand_Encoded"]
-        df_input[numeric_features] = repair_scaler.transform(df_input[numeric_features])
-
-        # Make the prediction using the repair model
-        predicted_repair_needed = repair_model.predict(df_input.values)
-
-        # Return the result based on the model's prediction
-        if predicted_repair_needed[0] == 1:
-            return jsonify({"prediction": "This car likely needs repairs."})
-        else:
-            return jsonify({"prediction": "This car does not likely need repairs."})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500

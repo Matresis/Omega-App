@@ -45,39 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    repairButton.addEventListener("click", async function () {
-        if (predictedPrice === null) return;
-
-        const formData = {
-            Brand: document.getElementById("brand").value,
-            Year: parseInt(document.getElementById("year").value),
-            Mileage: parseInt(document.getElementById("mileage").value),
-            Transmission: document.getElementById("transmission").value,
-            "Body Type": document.getElementById("bodyType").value,
-            Condition: document.getElementById("condition").value,
-            Cylinders: parseInt(document.getElementById("cylinders").value),
-            "Fuel Type": document.getElementById("fuelType").value,
-            "Title Status": document.getElementById("titleStatus").value,
-            Price: predictedPrice
-        };
-
-        try {
-            const response = await fetch("/repair-predictor/predict-repair", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData)
-            });
-
-            const data = await response.json();
-            repairPredictionResult.textContent = `Repair Prediction: ${data.prediction}`;
-            repairCostButton.style.display = "inline-block";
-
-        } catch (error) {
-            repairPredictionResult.textContent = "Error predicting repairs.";
-            console.error(error);
-        }
-    });
-
     repairCostButton.addEventListener("click", async function () {
         if (predictedPrice === null) return;
 
