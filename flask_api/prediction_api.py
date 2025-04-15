@@ -24,9 +24,6 @@ with open("models/price/scaler.pkl", "rb") as f:
 with open("models/risk/risk_model.pkl", "rb") as f:
     risk_model = pc.load(f)
 
-with open("models/risk/brand_encoding.pkl", "rb") as f:
-    risk_brand_encoding = pc.load(f)
-
 with open("models/risk/feature_order.pkl", "rb") as f:
     risk_expected_columns = pc.load(f)
 
@@ -40,9 +37,6 @@ with open("models/risk/risk_label_map.pkl", "rb") as f:
 # Load Model and Preprocessing Objects - Repair Classification Model
 with open("models/repair_cost/repair_cost_model.pkl", "rb") as f:
     repair_cost_model = pc.load(f)
-
-with open("models/repair_cost/brand_encoding.pkl", "rb") as f:
-    repair_cost_brand_encoding = pc.load(f)
 
 with open("models/repair_cost/feature_order.pkl", "rb") as f:
     repair_cost_expected_columns = pc.load(f)
@@ -153,14 +147,12 @@ def predict_risk():
         CURRENT_YEAR = 2025
         df_input["Car_Age"] = CURRENT_YEAR - df_input["Year"]
 
-        # Encode Brand using precomputed mapping
-        df_input["Brand_Encoded"] = df_input["Brand"].map(risk_brand_encoding).fillna(df_input["Price"].mean())  # Avg price used for unknown brands
 
         # Drop redundant columns
-        df_input.drop(columns=["Year", "Brand"], inplace=True, errors="ignore")
+        df_input.drop(columns=["Year"], inplace=True, errors="ignore")
 
         # One-Hot Encoding for categorical variables
-        categorical_columns = ["Transmission", "Body Type", "Condition", "Fuel Type", "Title Status"]
+        categorical_columns = ["Brand", "Transmission", "Body Type", "Condition", "Fuel Type", "Title Status"]
         df_input = pd.get_dummies(df_input, columns=categorical_columns)
 
         # Ensure all expected columns exist
@@ -169,19 +161,11 @@ def predict_risk():
                 df_input[col] = 0  # Add missing columns with 0
 
         # Standardize numeric features
-        numeric_features = ["Car_Age", "Mileage", "Cylinders", "Brand_Encoded"]
+        numeric_features = ["Car_Age", "Mileage", "Cylinders"]
         df_input[numeric_features] = risk_scaler.transform(df_input[numeric_features])
 
         # Ensure column order matches training
         df_input = df_input[risk_expected_columns]
-
-        # Debugging encoding process
-        print("Brand Encoding:", df_input["Brand_Encoded"].head())
-        print("Condition Risk:", df_input.get("Condition_Risk", "Column not found").head())  # Safe access
-        print("Title Status Risk:", df_input.get("Title_Risk", "Column not found").head())  # Safe access
-
-        # Debugging the processed input features
-        print("Processed Input Data:\n", df_input.head())
 
         # Convert to NumPy array
         df_input_np = df_input.values  # Store separately to avoid overwriting DataFrame
@@ -232,14 +216,11 @@ def predict_repair_cost():
         df_input["Car_Age"] = datetime.now().year - df_input["Year"]
         df_input["Mileage_per_Year"] = df_input["Mileage"] / (df_input["Car_Age"] + 1)
 
-        # Encode brand
-        df_input["Brand_Encoded"] = df_input["Brand"].map(repair_cost_brand_encoding).fillna(0)
-
         # Only drop what you truly don't need
-        df_input.drop(columns=["Year", "Brand"], inplace=True)
+        df_input.drop(columns=["Year"], inplace=True)
 
         # One-Hot Encoding for categorical columns
-        categorical_columns = ["Transmission", "Body Type", "Condition", "Fuel Type", "Title Status"]
+        categorical_columns = ["Brand", "Transmission", "Body Type", "Condition", "Fuel Type", "Title Status"]
         df_input = pd.get_dummies(df_input, columns=categorical_columns)
 
         print("Expected columns:", repair_cost_expected_columns)
@@ -255,7 +236,7 @@ def predict_repair_cost():
         print("Final input shape:", df_input.shape)
 
         # Scale numerical features
-        numeric_features = ["Car_Age", "Mileage", "Cylinders", "Brand_Encoded", "Price"]
+        numeric_features = ["Car_Age", "Mileage", "Cylinders", "Price"]
         df_input[numeric_features] = repair_cost_scaler.transform(df_input[numeric_features])
 
         # Predict repair cost

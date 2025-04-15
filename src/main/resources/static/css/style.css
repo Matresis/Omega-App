@@ -220,7 +220,7 @@ h3.fade-in {
     text-align: center;
 }
 
-.modal-content button {
+.loginButton {
     background: #007bff;
     color: white;
     border: none;
@@ -229,8 +229,21 @@ h3.fade-in {
     border-radius: 5px;
 }
 
-.modal-content button:hover {
+.loginButton:hover {
     background: #0056b3;
+}
+
+.closeButton {
+    background-color: white;
+    font-size: 40px;
+    color: #007bff;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.closeButton:hover {
+    color: #0056b3;
+    background-color: white;
 }
 
 #year, #mileage, #cylinders, #price, #name, #email, #password, #confirmPassword {

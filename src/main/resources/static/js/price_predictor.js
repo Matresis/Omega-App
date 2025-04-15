@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
             resultDiv.classList.add("fade-in");
 
             // Show repair button
-            repairButton.style.display = "inline-block";
+            repairCostButton.style.display = "inline-block";
 
         } catch (error) {
             resultDiv.textContent = "Error predicting price.";
