@@ -98,6 +98,11 @@ function showLoginModal() {
     modal.style.display = "block";
 }
 
+function closeLoginModal() {
+    const modal = document.getElementById("loginModal");
+    modal.style.display = "none";
+}
+
 function redirectToLogin() {
     window.location.href = "/auth";
 }
